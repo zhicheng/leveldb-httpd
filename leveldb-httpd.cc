@@ -34,6 +34,8 @@ kv(struct evhttp_request *req, void *arg)
 		value = buffer;
 
 		leveldb::Status s = db->Put(leveldb::WriteOptions(), key, value);
+		free(buffer);
+
 		if (!s.ok()) {
 			evhttp_send_error(req, HTTP_NOTFOUND, "NOT FOUND");
 			return;
